@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "Sales Report";
+}
+
+<h2>@ViewBag.Title</h2>
+<br />
+
+
+<div>
+    <label class="control-label">User</label>
+    @Html.DropDownList("User", new SelectList(ViewBag.Users, "Id", "Name"),"Select User", new { @class = "form-control", @style="display:inline" })
+    <label class="control-label">From Date</label>
+   <input type="text" class="form-control" id="txtFromDate" style="display:inline" placeholder="From Date (MM/DD/YYYY)" />
+    <label class="control-label">To Date</label>
+    <input type="text" class="form-control" id="txtToDate" style="display:inline" placeholder="To Date (MM/DD/YYYY)" />
+    <button class="btn btn-primary" id="btnSearch">Search</button>
+</div>
+<br />
+<h4>Search Results</h4>
+<br />
+<table class="table">
+    <tr>
+        <th>User</th>
+        <th>Total Sales</th>
+        <th>Total Vehicles</th>
+    </tr>
+    <tbody id="reportBody">
+
+    </tbody>
+</table>
+
+
+@section scripts {
+
+    <script>
+
+        $(document).ready(function () {
+
+            function getSalesReport() {
+                var userId = $("#User").val();
+                var fromDate = $("#txtFromDate").val();
+                var toDate = $("#txtToDate").val();
+
+                $.ajax({
+                    type: "GET",
+                    url: "/Reports/GetSalesReport?userId=" + userId + "&fromDate=" + fromDate + "&toDate=" + toDate,
+                    success: function (result) {
+                        $("#reportBody").html("");
+                        for (var i = 0; i < result.length; i++) {
+                            var tr = '<tr><td id="tdUser">' +result[i].UserName+ '</td><td id="tdTotalSales">$' +result[i].TotalSales+ '</td><td id="tdTotalVehicles">' +result[i].TotalVehicles+ '</td></tr>';
+                            $("#reportBody").append(tr);
+                        }
+                    },
+                    error: function (error) {
+                        alert(JSON.stringify(error));
+                    }
+                });
+            }
+
+            getSalesReport();
+
+            $("#btnSearch").on("click", getSalesReport);
+            
+        });
+    </script>
+}

@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    
+
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="">
+            @{
+                var user = Session["User"] as Models.User;
+                var userName = string.Empty;
+                string userRole = string.Empty;
+                if (user != null)
+                {
+                    userName = user.FirstName + ", " + user.LastName;
+                    userRole = user.Role;
+                }
+            }       
+         <div class="container body-content">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#"><span style="color:black" class="fa fa-car"></span></a>
+                    </div>
+                    <ul class="nav navbar-nav">
+                        <li class="active">@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("New Inventory", "New", "Inventory")</li>
+                        <li>@Html.ActionLink("Used Inventory", "Used", "Inventory")</li>
+                        <li>@Html.ActionLink("Specials", "Specials", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        @*<li>@Html.ActionLink("Sales", "Index", "Sales")</li>
+                        <li>@Html.ActionLink("Admin", "Vehicles", "Admin")</li>*@
+
+                        @if (user !=null && user.Role=="Sales")
+                        {
+                            <li>@Html.ActionLink("Sales", "Index", "Sales")</li>
+                        }
+                        @if (user != null && user.Role == "Admin")
+                        {
+                            <li>@Html.ActionLink("Admin", "Vehicles", "Admin")</li>
+                        }
+                        @if (user != null && user.Role == "Admin")
+                        {
+                            <li>@Html.ActionLink("Reports", "Index", "Reports")</li>
+                        }
+
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        
+                        <li><a>Hello @userName !!! (Role : @userRole)</a></li>
+                        <li><a href="/Account/LogOff" id="loginLink">Log Off</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            </footer>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

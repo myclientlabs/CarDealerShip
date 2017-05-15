@@ -1,0 +1,79 @@
+﻿body {
+    padding-top: 0px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+.field-validation-error
+{
+    color:red;
+}
+.clsFeatureTile {
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+    margin: 10px;
+}
+.clsFeatureTile .fa {
+    font-size: 75px;
+}
+.clsSpecialTile {
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+    padding: 10px;
+    margin-bottom: 5px;
+}
+.clsVehicleTileImage {
+    padding-top: 4px;
+    max-height: 100px;
+    min-height: 100px;
+}
+.clsVehicleTemplate {
+    border: solid;
+    border-width: 2px;
+    margin-bottom:5px;
+}
+#txtSearchText{
+    width:300px !important;
+    display:inline-block !important;
+    margin-right:40px;
+}
+#ddlMinPrice,#ddlMaxPrice,#ddlMinYear,#ddlMaxYear{
+    width:150px !important;
+    display:inline-block !important;
+
+}
+#ddlMaxPrice{
+    margin-right:20px;
+
+}
+#divQuickSearch{
+    padding-left:20px;
+    padding-bottom:10px;
+    border: solid;
+    border-width: 2px;
+    margin-bottom:5px;
+}
+#logoutForm
+{
+    margin-right:10px;
+}

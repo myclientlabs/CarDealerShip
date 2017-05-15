@@ -1,0 +1,45 @@
+﻿@using CarDealerBeta.Models;
+@model List<UserViewModel>
+    
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Users</title>
+</head>
+<body>
+    <div>
+        @if (Model == null)
+        {
+            <p>NO DATA RECEIVED</p>
+        }
+        else
+        {
+            <table>
+                <tr>
+                    <td>Last Name</td>
+                    <td>First Name</td>
+                    <td>Email</td>
+                    <td>Role</td>
+                    <td></td>
+                </tr>
+                @foreach (UserViewModel user in Model)
+                {
+                    <tr>
+                        <td>@user.LastName</td>
+                        <td>@user.FirstName</td>
+                        <td>@user.Email</td>
+                        <td>@user.Role</td>
+                        <td></td>
+                    </tr>
+                }
+            </table>
+        }
+    </div>
+</body>
+</html>

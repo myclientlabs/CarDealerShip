@@ -1,0 +1,181 @@
+﻿@model CarDealerBeta.Models.VehicleViewModel
+@{
+    ViewBag.Title = Model.Id > 0 ? "Edit Vehicle" : "Add Vehicle";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div>
+
+    @using (Html.BeginForm("SaveVehicle", "Admin", FormMethod.Post, new
+    {
+        enctype = "multipart/form-data"
+    }))
+    {
+        @Html.HiddenFor(s => s.Id)
+        @Html.HiddenFor(s => s.ImageFile)
+        <input type="hidden" value="@Model.ModelId" id="hdnModelId" />
+        <div class="row">
+            <div class="col-md-6">
+                @Html.Label("MakeId", "Make")
+                @Html.DropDownList("MakeId", new SelectList(ViewBag.Makes as List<Data.Make>, "Id", "Name", Model.MakeId), new { @class = "form-control" })
+
+            </div>
+            <div class="col-md-6">
+                @Html.LabelFor(s => s.ModelId, "Model")
+                @Html.DropDownList("ModelId", new List<SelectListItem> { }, new { @class = "form-control" })
+                @Html.ValidationMessageFor(s => s.ModelId)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                @Html.LabelFor(m => m.IsNew, "Type")
+                @Html.DropDownListFor(m => m.IsNew, new List<SelectListItem> { new SelectListItem { Text = "New", Value = "True" }, new SelectListItem { Text = "Used", Value = "False" } }, new { @class = "form-control" })
+            </div>
+            <div class="col-md-6">
+                @Html.LabelFor(s => s.StyleId, "Body Style")
+                @Html.DropDownListFor(m => m.StyleId, new SelectList(ViewBag.Styles as List<Data.Style>, "Id", "Description", Model.StyleId), new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                @Html.LabelFor(s => s.Year, "Year")
+                @Html.TextBoxFor(m => m.Year, new { @class = "form-control" })
+                @Html.ValidationMessageFor(s => s.Year)
+            </div>
+            <div class="col-md-6">
+                @Html.LabelFor(s => s.TransmissionId, "Transmissions")
+                @Html.DropDownListFor(m => m.TransmissionId, new SelectList(ViewBag.Transmissions as List<Data.Transmission>, "Id", "Description", Model.TransmissionId), new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                @Html.LabelFor(s => s.ExteriorId, "Color")
+                @Html.DropDownListFor(m => m.ExteriorId, new SelectList(ViewBag.Colors as List<Data.Color>, "Id", "Name", Model.ExteriorId), new { @class = "form-control" })
+            </div>
+            <div class="col-md-6">
+                @Html.LabelFor(s => s.InteriorId, "Interior")
+                @Html.DropDownListFor(m => m.InteriorId, new SelectList(ViewBag.Colors as List<Data.Color>, "Id", "Name", Model.InteriorId), new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                @Html.LabelFor(s => s.Mileage, "Mileage")
+                @Html.TextBoxFor(m => m.Mileage, new { @class = "form-control" })
+                @Html.ValidationMessageFor(s => s.Mileage)
+            </div>
+            <div class="col-md-6">
+                @Html.LabelFor(s => s.Vin, "VIN #")
+                @Html.TextBoxFor(m => m.Vin, new { @class = "form-control" })
+                @Html.ValidationMessageFor(s => s.Vin)
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                @Html.LabelFor(s => s.MSRP, "MSRP")
+                @Html.TextBoxFor(m => m.MSRP, new { @class = "form-control" })
+                @Html.ValidationMessageFor(s => s.MSRP)
+            </div>
+            <div class="col-md-6">
+                @Html.LabelFor(s => s.SalesPrice, "Sale Price")
+                @Html.TextBoxFor(m => m.SalesPrice, new { @class = "form-control" })
+                @Html.ValidationMessageFor(s => s.SalesPrice)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                @Html.LabelFor(s => s.Description, "Description")
+                @Html.TextAreaFor(m => m.Description, new { @class = "form-control", @style = "max-width:100%;height:100px;" })
+                @Html.ValidationMessageFor(s => s.Description)
+
+            </div>
+            <div class="col-md-12">
+                @if (Model.Id > 0)
+                {
+                    <img src="~/Images/@Model.ImageFile" class="clsVehicleTileImage" />
+                }
+
+            </div>
+            <div class="col-md-12">
+                @if (Model.Id > 0)
+                {
+                    <label>Replace Picture</label>
+                }
+                else
+                {
+                    <label>Picture</label>
+                }
+                <input type="file" title="Upload image" id="file" name="file" />
+                @Html.ValidationMessageFor(s => s.ImageFile)
+            </div>
+            @if (Model.Id > 0)
+            {
+                <div class="col-md-12">
+                    @Html.CheckBoxFor(m => m.IsFeaturedVehicle, new { @class = "" }) <label>Feature this Vehicle</label>
+                </div>
+            }
+        </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <p></p>
+                    @if (Model.Id > 0)
+                    {
+                        <a class="btn btn-danger" id="btnDelete" href="@Url.Action("DeleteVehicle", "Admin", new { id = Model.Id })">Delete</a>
+                    }
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+
+    }
+</div>
+@section scripts {
+
+    <script>
+
+        $(document).ready(function () {
+            $("#btnDelete").on("click", function (e) {
+                e.preventDefault();
+                var result = confirm("Are you sure you want to delete the vehicle?");
+                if (result == true) {
+                    window.location.href = $(this).attr("href");
+                }
+            });
+
+            function getModels() {
+                $.ajax({
+                    url: "/Admin/GetModelByMakeId/" + $("#MakeId").val(),
+                    success: function (result) {
+                        $("#ModelId").find("option").remove();
+                        for (var i = 0; i < result.length; i++) {
+                            $("#ModelId").append("<option value='" + result[i].Id + "'>" + result[i].Name + "</option>");
+                        }
+
+                        $("#ModelId").val($("#hdnModelId").val());
+
+                        if ($("#ModelId").val() == undefined) {
+                            $("#ModelId").val($("#ModelId").find("option").val());
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+
+                });
+
+            }
+            getModels();
+
+            $("#MakeId").on("change", function () {
+                getModels();
+            });
+                       
+        });
+
+    </script>
+
+}
+

@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Admin";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@Html.ActionLink("Add a new Vehicle", "AddVehicle", "Admin")
+
+@Html.Partial("~/Views/Inventory/_SearchPartialView.cshtml")
+<input type="hidden" id="hdnIsNewVehicle" value="" />
+<input type="hidden" id="hdnViewRole" value="Admin" />
+
+@section scripts {
+
+    <script src="~/Scripts/VehicleSearch.js"></script>
+}

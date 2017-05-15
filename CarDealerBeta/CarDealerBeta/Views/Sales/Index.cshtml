@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "Sales";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@Html.Partial("~/Views/Inventory/_SearchPartialView.cshtml")
+<input type="hidden" id="hdnIsNewVehicle" value="" />
+<input type="hidden" id="hdnViewRole" value="Sales" />
+
+@section scripts {
+
+<script src="~/Scripts/VehicleSearch.js"></script>
+}

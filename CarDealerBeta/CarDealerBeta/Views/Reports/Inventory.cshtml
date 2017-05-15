@@ -1,0 +1,68 @@
+﻿@{
+    ViewBag.Title = "Inventory Report";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@{ 
+    var newVehiclesReport = ViewBag.NewVehiclesReport as List<CarDealerBeta.Models.InventoryReportViewModel>;
+    var oldVehiclesReport = ViewBag.OldVehiclesReport as List<CarDealerBeta.Models.InventoryReportViewModel>;
+
+   
+}
+<br />
+<h4>New Vehicles</h4>
+
+<table class="table">
+    <tr>
+        <th>Year</th>
+        <th>Make</th>
+        <th>Model</th>
+        <th>Count</th>
+        <th>Stock Value</th>
+    </tr>
+
+    @if (newVehiclesReport != null)
+    {
+        <tbody>
+            @foreach (var item in newVehiclesReport)
+            {
+            <tr>
+                <td>@item.Year</td>
+                <td>@item.Make</td>
+                <td>@item.Model</td>
+                <td>@item.Count</td>
+                <td>$@item.StockValue</td>
+            </tr>
+            }
+        </tbody>
+    }
+</table>
+<br />
+<h4>Used Vehicles</h4>
+
+<table class="table">
+    <tr>
+        <th>Year</th>
+        <th>Make</th>
+        <th>Model</th>
+        <th>Count</th>
+        <th>Stock Value</th>
+    </tr>
+
+    @if (oldVehiclesReport != null)
+    {
+        <tbody>
+            @foreach (var item in oldVehiclesReport)
+            {
+                <tr>
+                    <td>@item.Year</td>
+                    <td>@item.Make</td>
+                    <td>@item.Model</td>
+                    <td>@item.Count</td>
+                    <td>$@item.StockValue</td>
+                </tr>
+            }
+        </tbody>
+    }
+</table>

@@ -1,0 +1,12 @@
+﻿
+<h3><b>@ViewBag.Title</b></h3>
+
+@Html.Partial("~/Views/Inventory/_SearchPartialView.cshtml")
+<input type="hidden" id="hdnIsNewVehicle" value="@ViewBag.IsNewVehicle.ToString().ToLower()" />
+
+@section scripts {
+
+    <script src="~/Scripts/VehicleSearch.js"></script>
+}
+
+

@@ -1,0 +1,65 @@
+﻿@model CarDealerBeta.Models.VehicleViewModel
+@{
+    ViewBag.Title = "Vehicle Details";
+}
+<h2>@ViewBag.Title</h2>
+
+<div class="clsVehicleTemplate row">
+    <div class="col-md-12">
+        <label id="vhHeading" style="margin-top:10px;">
+            @Model.Year @Model.MakeName @Model.ModelName
+        </label>
+    </div>
+    <div class="col-md-12">
+
+        <div class="col-md-3">
+            <img src="~/Images/@Model.ImageFile" id="vhImage" class="clsVehicleTileImage" />
+        </div>
+        <div class="col-md-3">
+            <div>
+                <span><b>Body Style: </b>@Model.BodyStyleText<span id="vhBodyStyle"></span></span>
+            </div>
+            <div>
+                <span><b>Trans: </b>@Model.TransmissionText<span id="vhTransmissionText"></span></span>
+            </div>
+            <div>
+                <span><b>Color: </b>@Model.ExteriorColor<span id="vhExteriorColor"></span></span>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div>
+                <span><b>Interior: </b>@Model.InteriorColor<span id="vhInteriorColor"></span></span>
+            </div>
+            <div>
+                <span><b>Mileage: </b>@Model.Mileage<span id="vhMileage"></span></span>
+            </div>
+            <div>
+                <span><b>VIN #: </b>@Model.Vin<span id="vhVin"></span></span>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div>
+                <span><b>Sale Price: </b>$@Model.SalesPrice<span id="vhSalesPrice"></span></span>
+            </div>
+            <div>
+                <span><b>MRSP: </b>$@Model.MSRP<span id="vhMSRP"></span></span>
+            </div>
+           
+
+        </div>
+    </div>
+
+    <div class="col-md-9 col-md-offset-3">
+        <div>
+            <div>
+                <span><b>Description: </b>@Model.Description<span id="vhBodyStyle"></span></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="pull-right">
+            <a class="btn btn-primary" style="margin-bottom:10px;" href="@Url.Action("Contact","Home")">Contact Us</a>
+        </div>
+    </div>
+</div>
